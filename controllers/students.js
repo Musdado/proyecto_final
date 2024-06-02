@@ -1,13 +1,13 @@
 const express= require('express');
 const mongoose= require('mongoose');
 
-const Student= require('../models/studentsdata');
+const product= require('../models/productsdata');
 
 const router= express.Router();
 
-const getStudents = async (req, res) => {
+const getproducts = async (req, res) => {
     try {
-        const student= await Student.find();
+        const student= await product.find();
         
         res.status(200).json(student);
     } catch(error) {
@@ -15,11 +15,11 @@ const getStudents = async (req, res) => {
     }
 }
 
-const getspecStudent = async (req,res) => {
+const getspecproduct = async (req,res) => {
     const id = req.params._id;
 console.log(req);
     try {
-        const stud = await Student.findOne({id: id});
+        const stud = await product.findOne({id: id});
 
         res.status(200).json(stud);
     } catch(error) {
@@ -27,9 +27,9 @@ console.log(req);
     }
 }
 
-const createstudent =  async (req, res) => {
+const createproduct =  async (req, res) => {
     
-    const newstudent = new Student({
+    const newsproduct = new product({
         name:req.body.name,
         roll:req.body.roll,
         registration:req.body.registration,
@@ -38,9 +38,9 @@ const createstudent =  async (req, res) => {
 
     })
     try {
-        await newstudent.save();
+        await newsproduct.save();
 
-        res.status(201).json(newstudent);
+        res.status(201).json(newsproduct);
 
     } catch(error) {
         res.status(400).json({ message : error.message});
@@ -48,10 +48,10 @@ const createstudent =  async (req, res) => {
 
 }
 
-const updatestudent = async (req, res) => {
+const updateproduct = async (req, res) => {
     const id = req.params._id;
     try{
-        await Student.findOneAndUpdate({
+        await product.findOneAndUpdate({
             id: id,
         },
         {   
@@ -69,15 +69,15 @@ const updatestudent = async (req, res) => {
     
 }
 
-const deletestudent = async (req, res) => {
+const deleteproduct = async (req, res) => {
     
 
     try {
-        const id = await Student.findOne({id : req.params._id});
+        const id = await product.findOne({id : req.params._id});
     if(!id){
         return res.status(404).send("User not found!")
       }
-        await Student.deleteOne({_id: id});
+        await product.deleteOne({_id: id});
         res.status(203).json({id:id});
         
     }catch(error) {
@@ -87,8 +87,8 @@ const deletestudent = async (req, res) => {
 }
 
 
-module.exports.getStudents= getStudents;
-module.exports.createstudent= createstudent;
-module.exports.getspecStudent= getspecStudent;
-module.exports.updatestudent= updatestudent;
-module.exports.deletestudent= deletestudent;
+module.exports.getproducts= getproducts;
+module.exports.createproduct= createproduct;
+module.exports.getspecproduct= getspecproduct;
+module.exports.updateproduct= updateproduct;
+module.exports.deleteproduct= deleteproduct;

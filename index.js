@@ -27,8 +27,8 @@ con.on('error', (error) => {
 });
 
 // Define routes
-const studentRouter = require('./routes/students');
-app.use('/students', studentRouter);
+const studentProduct = require('./routes/products');
+app.use('/students', studentProduct);
 
 // Start the server
 app.listen(port, () => {
